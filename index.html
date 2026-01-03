@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>for taylynn 🦆</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family: "Comic Sans MS", Arial, sans-serif;
+  background:linear-gradient(135deg,#ffb6c1,#ffc0cb,#ffdde1);
+  min-height:100vh;
+  color:#4b2c2c;
+  overflow-x:hidden;
+  position:relative;
+}
+
+/* Floating hearts animation */
+.heart{
+  position:fixed;
+  font-size:24px;
+  opacity:0;
+  animation:floatHeart 6s infinite;
+  pointer-events:none;
+  z-index:1;
+}
+@keyframes floatHeart{
+  0%{transform:translateY(100vh) rotate(0deg);opacity:0}
+  10%{opacity:0.8}
+  90%{opacity:0.8}
+  100%{transform:translateY(-100vh) rotate(360deg);opacity:0}
+}
+
+/* Sparkles */
+.sparkle{
+  position:fixed;
+  width:4px;
+  height:4px;
+  background:white;
+  border-radius:50%;
+  pointer-events:none;
+  animation:sparkleAnim 2s infinite;
+  z-index:1;
+}
+@keyframes sparkleAnim{
+  0%,100%{opacity:0;transform:scale(0)}
+  50%{opacity:1;transform:scale(1)}
+}
+
+.page{
+  display:none;
+  min-height:100vh;
+  padding:25px;
+  animation:fadeSlide .8s ease;
+  position:relative;
+  z-index:2;
+}
+.page.active{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+@keyframes fadeSlide{
+  from{opacity:0;transform:translateY(30px) scale(0.95)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+
+.card{
+  background:rgba(255,255,255,.85);
+  border-radius:25px;
+  padding:30px;
+  max-width:500px;
+  box-shadow:0 20px 60px rgba(255,105,180,.3);
+  backdrop-filter:blur(10px);
+  border:2px solid rgba(255,255,255,.5);
+  animation:cardPulse 3s ease-in-out infinite;
+  position:relative;
+  overflow:hidden;
+}
+@keyframes cardPulse{
+  0%,100%{box-shadow:0 20px 60px rgba(255,105,180,.3)}
+  50%{box-shadow:0 25px 70px rgba(255,105,180,.5)}
+}
+
+.card::before{
+  content:"";
+  position:absolute;
+  top:-50%;
+  left:-50%;
+  width:200%;
+  height:200%;
+  background:linear-gradient(45deg,transparent,rgba(255,255,255,.3),transparent);
+  transform:rotate(45deg);
+  animation:shine 3s infinite;
+}
+@keyframes shine{
+  0%{transform:translateX(-100%) rotate(45deg)}
+  100%{transform:translateX(100%) rotate(45deg)}
+}
+
+button{
+  margin-top:20px;
+  padding:14px 28px;
+  border:none;
+  border-radius:30px;
+  background:linear-gradient(135deg,#ff6f91,#ff9a9e);
+  color:white;
+  font-weight:bold;
+  font-size:1em;
+  cursor:pointer;
+  transition:all .3s;
+  box-shadow:0 8px 20px rgba(255,111,145,.4);
+  position:relative;
+  z-index:3;
+}
+button:hover{
+  transform:translateY(-3px);
+  box-shadow:0 12px 30px rgba(255,111,145,.6);
+}
+button:active{transform:translateY(0) scale(.96)}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+  margin-top:25px;
+  width:100%;
+}
+.tile{
+  background:white;
+  border-radius:20px;
+  padding:20px;
+  box-shadow:0 10px 25px rgba(0,0,0,.15);
+  cursor:pointer;
+  transition:all .3s;
+  position:relative;
+  overflow:hidden;
+}
+.tile::after{
+  content:"💕";
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%) scale(0);
+  font-size:3em;
+  opacity:0;
+  transition:all .4s;
+}
+.tile:hover{
+  transform:translateY(-8px) scale(1.05);
+  box-shadow:0 15px 35px rgba(255,105,180,.4);
+}
+.tile:hover::after{
+  transform:translate(-50%,-50%) scale(1);
+  opacity:0.3;
+}
+
+img{
+  width:100%;
+  border-radius:20px;
+  margin-top:15px;
+  box-shadow:0 10px 30px rgba(0,0,0,.2);
+  transition:transform .3s;
+}
+img:hover{
+  transform:scale(1.05);
+}
+
+.blur{
+  filter:blur(12px);
+  transition:filter 1s;
+}
+.reveal{
+  filter:blur(0);
+  animation:heartbeat 1s ease;
+}
+@keyframes heartbeat{
+  0%,100%{transform:scale(1)}
+  25%{transform:scale(1.1)}
+  50%{transform:scale(1)}
+  75%{transform:scale(1.05)}
+}
+
+.small{font-size:.9em;opacity:.8;line-height:1.6}
+.timer{
+  font-size:1.3em;
+  font-weight:bold;
+  margin-top:15px;
+  color:#ff6f91;
+  text-shadow:0 2px 10px rgba(255,105,180,.3);
+}
+
+.promise-text{
+  line-height:1.8;
+  text-align:left;
+  max-height:400px;
+  overflow-y:auto;
+  padding:15px;
+  background:rgba(255,255,255,.5);
+  border-radius:15px;
+  margin:15px 0;
+}
+
+/* Scrollbar styling */
+.promise-text::-webkit-scrollbar{width:8px}
+.promise-text::-webkit-scrollbar-track{background:rgba(255,182,193,.3);border-radius:10px}
+.promise-text::-webkit-scrollbar-thumb{background:#ff6f91;border-radius:10px}
+
+iframe{
+  box-shadow:0 10px 30px rgba(0,0,0,.2);
+  margin:15px 0;
+}
+
+p{
+  position:relative;
+  z-index:2;
+  line-height:1.6;
+  margin:8px 0;
+}
+
+.card > p:first-child{
+  animation:textPop 0.6s ease;
+}
+@keyframes textPop{
+  0%{transform:scale(0.8);opacity:0}
+  100%{transform:scale(1);opacity:1}
+}
+</style>
+</head>
+
+<body>
+
+<!-- INTRO -->
+<div class="page active" id="intro">
+  <div class="card">
+    <p>Hi Taylynn.</p><br>
+    <p>You weren't supposed to see this today.</p>
+    <p>But here we are.</p><br>
+    <p class="small">Please explore slowly, there's not enough content😭.<br>This was built with feelings, priceless feelings, feelings only you could build.</p>
+    <button onclick="go('music')">okay 🫶🏽</button>
+  </div>
+</div>
+
+<!-- MUSIC GATE -->
+<div class="page" id="music">
+  <div class="card">
+    <p><b>Before anything else</b></p>
+    <p>press play.</p>
+    <p class="small">trust me on this one💁🏽‍♂️.</p>
+    <button onclick="playSong()">▶ play</button>
+    <button id="enterBtn" style="display:none" onclick="go('hub')">come in 💜</button>
+    <audio id="song">
+      <!-- ADD SONG FILE HERE -->
+    </audio>
+  </div>
+</div>
+
+<!-- HUB -->
+<div class="page" id="hub">
+  <div class="card">
+    <p>hey taylynn 🦆</p>
+    <p class="small">this is our little world</p>
+    <div class="grid">
+      <div class="tile" onclick="go('story')">📖<br>how it started</div>
+      <div class="tile" onclick="go('ducks')">🦆<br>the ducks</div>
+      <div class="tile" onclick="go('distance')">🗺️<br>the distance</div>
+      <div class="tile" onclick="go('time')">⏳<br>the time</div>
+      <div class="tile" onclick="go('promise')">💌<br>my promise</div>
+      <div class="tile" onclick="go('us')">💜<br>us</div>
+    </div>
+  </div>
+</div>
+
+<!-- STORY -->
+<div class="page" id="story">
+  <div class="card">
+    <p>online became conversations.</p>
+    <p>conversations became hours.</p>
+    <p>hours became something real.</p><br>
+    <p class="small">5 december was not random, it was a blessing.</p>
+  </div>
+  <button onclick="go('hub')">back</button>
+</div>
+
+<!-- DUCKS -->
+<div class="page" id="ducks">
+  <div class="card">
+    <p><b>meet the family</b></p><br>
+    <p>two ducks.</p>
+    <p>one very serious relationship.</p>
+    <p>and a child we definitely didn't plan.</p>
+    <img src="IMG-20251218-WA0099.jpg">
+    <p class="small">
+      this is clover.<br>
+      she is small.<br>
+      she is powerful.<br>
+      she runs this relationship (even though you said you never gonna do this again because it's childish)
+    </p>
+  </div>
+  <button onclick="go('hub')">back</button>
+</div>
+
+<!-- DISTANCE -->
+<div class="page" id="distance">
+  <div class="card">
+    <p>you live here.</p>
+    <p>i live there.</p><br>
+
+    <iframe
+      src="https://www.google.com/maps?q=Stella+South+Africa+to+Nelspruit+South+Africa&output=embed"
+      width="100%" height="250"
+      style="border:0;border-radius:20px">
+    </iframe>
+
+    <p class="small">
+      google says we're far.<br>
+      our hearts disagree.
+    </p>
+  </div>
+  <button onclick="go('hub')">back</button>
+</div>
+
+<!-- TIME -->
+<div class="page" id="time">
+  <div class="card">
+    <p>we started talking on the 5th of december.</p>
+    <p>and since then…</p>
+    <div class="timer" id="timer"></div>
+    <p class="small">
+      every second here<br>
+      is another second i'd still choose you.
+    </p>
+  </div>
+  <button onclick="go('hub')">back</button>
+</div>
+
+<!-- MY PROMISE TO YOU -->
+<div class="page" id="promise">
+  <div class="card">
+    <p><b>my promise to you 💌</b></p>
+    <div class="promise-text">
+      <p class="small">
+        babe i'm just a kid, I know nothing beyond alcohol, choef and reckless impulsive decisions, you can't expect anything high from someone like that but if it means I have to meet your peers standards, I'm willing, I'm willing to drop everything bad, willing to be yours and yours only, willing to be the best version of myself that i can be because that's what a woman like you deserves. You've been complaining daily, and it's all for valid reasons, and that gets me at my worst feelings ever. which is why I need you to be patient, my promises aren't 1 day things, they develop as time goes on and eventually be as perfect as you desire. I promise to keep you happy, to myself, love you without boundary and treat you better❤️
+      </p>
+    </div>
+  </div>
+  <button onclick="go('hub')">back</button>
+</div>
+
+<!-- US -->
+<div class="page" id="us">
+  <div class="card">
+    <p>there's a photo here.</p>
+    <p>you already know which one.</p>
+    <img src="IMG-20251218-WA0104.jpg" id="usPic" class="blur">
+    <button onclick="reveal()">okay… show me</button>
+    <p class="small">my favourite screenshot of reality.</p>
+  </div>
+  <button onclick="go('hub')">back</button>
+</div>
+
+<script>
+function go(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  createHearts();
+}
+
+function playSong(){
+  const s=document.getElementById('song');
+  s.play();
+  document.getElementById('enterBtn').style.display="inline-block";
+}
+
+function reveal(){
+  document.getElementById('usPic').classList.add('reveal');
+}
+
+// Timer
+const start=new Date("2025-12-05T00:00:00");
+setInterval(()=>{
+  const d=Date.now()-start.getTime();
+  const days=Math.floor(d/86400000);
+  const hrs=Math.floor(d%86400000/3600000);
+  const mins=Math.floor(d%3600000/60000);
+  const secs=Math.floor(d%60000/1000);
+  const timer=document.getElementById("timer");
+  if(timer){
+    timer.textContent=`${days} days ${hrs} hours ${mins} minutes ${secs} seconds`;
+  }
+},1000);
+
+// Floating hearts
+function createHearts(){
+  for(let i=0;i<5;i++){
+    setTimeout(()=>{
+      const heart=document.createElement('div');
+      heart.className='heart';
+      heart.innerHTML=['💕','💞','✨','❤️','😝'][Math.floor(Math.random()*5)];
+      heart.style.left=Math.random()*100+'vw';
+      heart.style.animationDelay=Math.random()*2+'s';
+      heart.style.animationDuration=(4+Math.random()*3)+'s';
+      document.body.appendChild(heart);
+      setTimeout(()=>heart.remove(),7000);
+    },i*400);
+  }
+}
+
+// Sparkles
+function createSparkles(){
+  for(let i=0;i<20;i++){
+    const sparkle=document.createElement('div');
+    sparkle.className='sparkle';
+    sparkle.style.left=Math.random()*100+'vw';
+    sparkle.style.top=Math.random()*100+'vh';
+    sparkle.style.animationDelay=Math.random()*2+'s';
+    document.body.appendChild(sparkle);
+  }
+}
+
+createHearts();
+createSparkles();
+setInterval(createHearts,6000);
+</script>
+
+</body>
+</html>
